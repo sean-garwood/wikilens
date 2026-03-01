@@ -24,7 +24,12 @@ async function makeRequest(pageTitle) {
 
   let json = await res.json();
 
-  console.log(json.extract);
+  const data = {
+    link: json.content_urls.desktop.page,
+    summary: json.extract,
+  };
+
+  data.keys.forEach((k) => console.log(data[k]));
 }
 
 const listenForMouseDown = () => {
