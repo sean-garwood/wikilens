@@ -2,12 +2,15 @@
   "name": "wikilens",
   "version": "1.0.0",
   "description": "Grab Wikipedia summaries from highlighted text",
-  "background": {
-    "scripts": ["background.js"],
-    "type": "module"
-  },
+  "content_scripts": [
+    {
+      "matches": ["*://*/*"],
+      "js": ["content-script.js"]
+    }
+  ],
+  "permissions": ["webRequest"],
   "icons": {
-    "48": "images/icon-48.png",
+    "48": "images/mona-lisa.png",
     "128": "images/icon-128.png"
   },
   "manifest_version": 3
