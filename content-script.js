@@ -29,7 +29,13 @@ async function makeRequest(pageTitle) {
     summary: json.extract,
   };
 
-  data.keys.forEach((k) => console.log(data[k]));
+  for (const [k, v] of Object.entries(data)) {
+    if (v) {
+      console.log(`${k}: ${v}`);
+    } else {
+      throw new Error(`No ${k} found for ${pageTitle}.`);
+    }
+  }
 }
 
 const listenForMouseDown = () => {
