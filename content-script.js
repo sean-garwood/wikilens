@@ -24,7 +24,18 @@ async function makeRequest(pageTitle) {
 
   let json = await res.json();
 
-  console.log(json.extract);
+  const data = {
+    link: json.content_urls.desktop.page,
+    summary: json.extract,
+  };
+
+  for (const [k, v] of Object.entries(data)) {
+    if (v) {
+      console.log(`${k}: ${v}`);
+    } else {
+      throw new Error(`No ${k} found for ${pageTitle}.`);
+    }
+  }
 }
 
 const listenForMouseDown = () => {
