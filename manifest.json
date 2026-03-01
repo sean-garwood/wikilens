@@ -13,5 +13,11 @@
     "48": "images/mona-lisa.png",
     "128": "images/icon-128.png"
   },
+  "web_accessible_resources": [
+    {
+      "resources": ["tooltip.html"],
+      "matches": ["*://*/*"]
+    }
+  ],
   "manifest_version": 3
 }

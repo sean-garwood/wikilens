@@ -1,3 +1,5 @@
+import { show } from "src/show.service";
+
 const MIN_TITLE_LEN = 3;
 
 async function checkSelection() {
@@ -16,6 +18,7 @@ async function checkSelection() {
 async function makeRequest(pageTitle) {
   const endpoint = "https://en.wikipedia.org/api/rest_v1/page/summary/";
   const req = new Request(endpoint + pageTitle);
+  const rect = Range.getBoundingClientRect();
   let res = await window.fetch(req);
 
   if (res.status == 404) {
@@ -24,18 +27,10 @@ async function makeRequest(pageTitle) {
 
   let json = await res.json();
 
-  const data = {
+  log({
     link: json.content_urls.desktop.page,
     summary: json.extract,
-  };
-
-  for (const [k, v] of Object.entries(data)) {
-    if (v) {
-      console.log(`${k}: ${v}`);
-    } else {
-      throw new Error(`No ${k} found for ${pageTitle}.`);
-    }
-  }
+  });
 }
 
 const listenForMouseDown = () => {
