@@ -1,13 +1,14 @@
-import { show } from "src/show.service";
-
 const MIN_TITLE_LEN = 3;
 
 async function checkSelection() {
-  const title = window.getSelection().toString();
+  const selection = window.getSelection();
+  const title = selection.toString().trim();
 
   if (title.length >= MIN_TITLE_LEN) {
     try {
-      await makeRequest(title);
+      const range = selection.getRangeAt(0);
+      const rect = range.getBoundingClientRect();
+      await makeRequest(title, rect);
     } catch (error) {
       console.error("Failure checking selection: ", error);
     }
@@ -15,31 +16,34 @@ async function checkSelection() {
   listenForMouseDown();
 }
 
-async function makeRequest(pageTitle) {
+async function makeRequest(pageTitle, rect) {
   const endpoint = "https://en.wikipedia.org/api/rest_v1/page/summary/";
-  const req = new Request(endpoint + pageTitle);
-  const rect = Range.getBoundingClientRect();
-  let res = await window.fetch(req);
+  const req = new Request(endpoint + encodeURIComponent(pageTitle));
+  const res = await window.fetch(req);
 
-  if (res.status == 404) {
-    throw new Error(`${pageTitle} not found.`);
+  if (!res.ok) {
+    throw new Error(`Wikipedia API returned ${res.status} for "${pageTitle}".`);
   }
 
-  let json = await res.json();
+  const json = await res.json();
 
-  log({
-    link: json.content_urls.desktop.page,
-    summary: json.extract,
-  });
+  showTooltip(
+    {
+      title: json.title,
+      link: json.content_urls.desktop.page,
+      summary: json.extract,
+    },
+    rect,
+  );
 }
 
 const listenForMouseDown = () => {
-  const listenForMouseUp = () => {
-    document.removeEventListener("mousedown", listenForMouseUp);
+  const onMouseDown = () => {
+    document.removeEventListener("mousedown", onMouseDown);
     document.addEventListener("mouseup", checkSelection);
   };
   document.removeEventListener("mouseup", checkSelection);
-  document.addEventListener("mousedown", listenForMouseUp);
+  document.addEventListener("mousedown", onMouseDown);
 };
 
 listenForMouseDown();

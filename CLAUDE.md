@@ -14,9 +14,9 @@ After any code change, click the refresh icon on the extension card and reload t
 
 ## Architecture
 
-- `manifest.json`: MV3 manifest; injects `content-script.js` into all URLs (`*://*/*`) and exposes `tooltip.html` as a web-accessible resource.
-- `content-script.js`: Entry point injected into every page. Manages the mousedown/mouseup event cycle, reads `window.getSelection()`, and calls the Wikimedia API when selection length >= 3. Imports from `src/show.service.js`.
-- `src/show.service.js`: Responsible for rendering the tooltip DOM near the selection bounding rect. Currently in progress on `feat/tooltip`.
+- `manifest.json`: MV3 manifest; injects `src/show.service.js` then `content-script.js` into all URLs (`*://*/*`). Both scripts share the global scope (no bundler, no ES modules).
+- `content-script.js`: Entry point injected into every page. Manages the mousedown/mouseup event cycle, reads `window.getSelection()`, and calls the Wikimedia API when selection length >= 3. Calls `showTooltip()` from show.service.
+- `src/show.service.js`: Renders and positions the tooltip DOM near the selection bounding rect. Dismisses on click outside.
 
 ## Key constraints
 
@@ -25,5 +25,4 @@ After any code change, click the refresh icon on the extension card and reload t
 
 ## Known issues
 
-- `makeRequest` in `content-script.js` currently calls `Range.getBoundingClientRect()` as a bare static call (bug: should be called on a `Range` instance) -- the bounding rect needs to be passed through to `showTooltip`.
-  - !`gh issue view 1 --json "body,title" --jq "."`
+None currently tracked.
