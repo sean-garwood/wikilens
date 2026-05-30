@@ -97,7 +97,7 @@ function setupEnv() {
         scrollY: 0,
     };
 
-    let fn = new Function(
+    const fn = new Function(
         "document",
         "window",
         serviceCode +

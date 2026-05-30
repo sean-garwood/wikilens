@@ -1,0 +1,11 @@
+{
+  "name": "wikilens",
+  "files": [
+    "manifest.json",
+    "content-script.js",
+    "src/",
+    "images/icon-128.png",
+    "images/mona-lisa.png",
+    "LICENSE"
+  ]
+}
