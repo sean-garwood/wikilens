@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     build: {
         artifactsDir: "dist",
         ignoreFiles: [
@@ -12,7 +12,7 @@ module.exports = {
             "Makefile",
             "CLAUDE.md",
             "build.config.json",
-            "web-ext-config.js",
+            "web-ext-config.mjs",
         ],
     },
 };
