@@ -11,7 +11,6 @@ ifeq ($(OS),Windows_NT)
 	@echo make clean unsupported on Windows.
 else
 	rm -f wikilens.zip
-	rm -rf dist/
 endif
 
 test:

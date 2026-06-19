@@ -40,11 +40,12 @@ def main():
 
     run(["git", "tag", tag])
     run(["git", "push", "origin", tag])
-    run(["npx", "web-ext", "build"])
+    run([sys.executable, str(ROOT / "utils" / "build-zip.py")])
 
-    zip_name = f"wikilens-{version}.zip"
-    print(f"\nDone: dist/{zip_name}")
-    print("Upload at: https://addons.mozilla.org/developers/")
+    print(f"\nDone: wikilens.zip (tagged {tag})")
+    print("Upload at:")
+    print("  Firefox: https://addons.mozilla.org/developers/")
+    print("  Chrome:  https://chrome.google.com/webstore/devconsole")
 
 
 if __name__ == "__main__":
