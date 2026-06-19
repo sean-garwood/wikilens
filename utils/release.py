@@ -32,7 +32,7 @@ def main():
         sys.exit(1)
 
     existing = subprocess.run(
-        ["git", "rev-parse", tag], cwd=ROOT, capture_output=True
+        ["git", "rev-parse", tag], cwd=ROOT, capture_output=True, check=False
     )
     if existing.returncode == 0:
         print(f"error: tag {tag} already exists", file=sys.stderr)

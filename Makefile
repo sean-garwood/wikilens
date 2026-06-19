@@ -4,7 +4,7 @@ zip:
 	python3 utils/build-zip.py
 
 distro:
-	python3 scripts/release.py
+	python3 utils/release.py
 
 clean:
 ifeq ($(OS),Windows_NT)

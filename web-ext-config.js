@@ -5,8 +5,6 @@ module.exports = {
       'test/**',
       'utils/**',
       '.claude/**',
-      'scripts/**',
-      'node_modules/**',
       'dist/**',
       '*.zip',
       '.prettierrc',
@@ -15,8 +13,6 @@ module.exports = {
       'CLAUDE.md',
       'build.config.json',
       'web-ext-config.js',
-      'package.json',
-      'package-lock.json',
     ],
   },
 };
