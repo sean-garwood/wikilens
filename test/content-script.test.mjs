@@ -16,7 +16,8 @@ function loadScript() {
     const fn = new Function(
         "document",
         "window",
-        scriptCode + "\nreturn { normalizeTitle, MIN_TITLE_LEN, MAX_TITLE_LEN };",
+        scriptCode +
+            "\nreturn { normalizeTitle, MIN_TITLE_LEN, MAX_TITLE_LEN };",
     );
     return fn(mockDocument, {});
 }
