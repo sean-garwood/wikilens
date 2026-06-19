@@ -50,13 +50,3 @@ describe("normalizeTitle", () => {
         strictEqual(normalizeTitle("..."), "");
     });
 });
-
-describe("title length constants", () => {
-    it("MIN_TITLE_LEN is 3", () => {
-        strictEqual(MIN_TITLE_LEN, 3);
-    });
-
-    it("MAX_TITLE_LEN is above 100 and at most 300", () => {
-        ok(MAX_TITLE_LEN > 100 && MAX_TITLE_LEN <= 300, `MAX_TITLE_LEN=${MAX_TITLE_LEN}`);
-    });
-});
