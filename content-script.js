@@ -1,4 +1,5 @@
 const MIN_TITLE_LEN = 3;
+// TODO: max title len
 
 /**
  * Requests the wikipedia summary for the selected text.
