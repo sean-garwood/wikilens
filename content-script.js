@@ -1,15 +1,15 @@
 const MIN_TITLE_LEN = 3;
+const MAX_TITLE_LEN = 200;
 
-/**
- * Requests the wikipedia summary for the selected text.
- * @todo handle punctuation
- * @see Issue #7
- */
+function normalizeTitle(raw) {
+    return raw.replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}]+$/gu, "");
+}
+
 async function checkSelection() {
     const selection = window.getSelection();
-    const title = selection.toString().trim();
+    const title = normalizeTitle(selection.toString());
 
-    if (title.length >= MIN_TITLE_LEN) {
+    if (title.length >= MIN_TITLE_LEN && title.length <= MAX_TITLE_LEN) {
         try {
             const range = selection.getRangeAt(0);
             const rect = range.getBoundingClientRect();
